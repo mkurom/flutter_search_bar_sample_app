@@ -8,12 +8,15 @@ class AppPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => SearchBarController(),
+      create: (context) {
+        final controller = SearchBarController();
+        controller.init();
+        return controller;
+      },
       child: Consumer<SearchBarController>(
         builder: (BuildContext context, SearchBarController searchBarController,
-            Widget? _) {
+            Widget? child) {
           if (searchBarController.isLoading) {
-            searchBarController.init();
             return const Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
